@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import com.example.xyzreader.data.UpdaterService;
  * activity presents a grid of items as cards.
  */
 public class ArticleListActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
 
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -46,6 +47,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
@@ -107,6 +109,11 @@ public class ArticleListActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mRecyclerView.setAdapter(null);
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh();
     }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
