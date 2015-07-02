@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.annotation.TargetApi;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +8,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +56,24 @@ public class ArticleListActivity extends AppCompatActivity implements
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
 
+        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        if (appBarLayout != null) {
+            ViewCompat.setElevation(appBarLayout, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        if (recyclerView.computeVerticalScrollOffset() == 0) {
+                            appBarLayout.setElevation(0);
+                        } else {
+                            appBarLayout.setElevation(appBarLayout.getTargetElevation());
+                        }
+                    }
+                });
+            }
+        }
+
         if (savedInstanceState == null) {
             refresh();
         }
@@ -72,6 +94,15 @@ public class ArticleListActivity extends AppCompatActivity implements
     protected void onStop() {
         super.onStop();
         unregisterReceiver(mRefreshingReceiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mRecyclerView != null) {
+            // TODO remove listener
+//            mRecyclerView.removeOnScrollListener(this);
+        }
     }
 
     private boolean mIsRefreshing = false;
