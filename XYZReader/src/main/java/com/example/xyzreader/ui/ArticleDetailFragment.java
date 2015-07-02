@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -102,14 +103,17 @@ public class ArticleDetailFragment extends Fragment implements
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-        CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsing_toolbar);
-        mCollapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) mRootView.findViewById(R.id.collapsing_toolbar);
+        if (collapsingToolbarLayout != null) {
+            collapsingToolbarLayout.setTitle(getString(R.string.app_name));
+        }
 
-        Toolbar mToolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
-        mActivity.setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
+        mActivity.setSupportActionBar(toolbar);
         ActionBar actionBar = mActivity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(shouldDisplayActionBarTitle());
         }
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
@@ -117,6 +121,10 @@ public class ArticleDetailFragment extends Fragment implements
 
         bindViews();
         return mRootView;
+    }
+
+    private boolean shouldDisplayActionBarTitle() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private void bindViews() {
