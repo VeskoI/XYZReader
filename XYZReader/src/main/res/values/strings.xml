@@ -9,5 +9,8 @@
 
     <string name="up">Up</string>
     <string name="share_text">Hey, I just read an awesome article about <xliff:g id="article_title">%1$s</xliff:g></string>
+    <string name="cd_main_image">Main image of the article</string>
+    <string name="cd_article_details">Article author and date</string>
+    <string name="cd_article_title">Article title</string>
 
 </resources>

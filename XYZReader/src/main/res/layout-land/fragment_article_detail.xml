@@ -44,6 +44,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
                     android:background="@color/primary_dark"
+                    android:contentDescription="@string/cd_article_title"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/detail_inner_vert_margin"
                     android:paddingLeft="@dimen/detail_inner_horiz_margin"
@@ -68,6 +69,7 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/cd_article_details"
                         android:textColor="#8fff"
                         tools:text="05 Jun 2015, Vesko"/>
                 </LinearLayout>
@@ -77,9 +79,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@id/meta_bar"
+                    android:contentDescription="@string/cd_main_image"
                     android:maxWidth="300dp"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop"/>
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
