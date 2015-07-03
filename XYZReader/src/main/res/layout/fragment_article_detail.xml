@@ -78,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_article_title"
-                        android:fontFamily="sans-serif-condensed"
+                        android:fontFamily="sans-serif"
                         android:lineSpacingMultiplier="0.9"
                         android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
                         android:textColor="@color/white"
@@ -87,11 +87,11 @@
 
                     <TextView
                         android:id="@+id/article_byline"
-                        style="?android:attr/textAppearanceSmall"
+                        style="?android:attr/textAppearanceMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/cd_article_details"
-                        android:textColor="@color/champagne"/>
+                        android:textColor="@color/white"/>
                 </LinearLayout>
 
                 <TextView
